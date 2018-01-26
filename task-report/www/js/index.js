@@ -16,6 +16,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+$.ajax({
+  type: "GET",
+  dataType: "json",
+  url: "https://api.ca.d4h.org/v2/team/attendance",
+  headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
+  success: onSuccess,
+  error: onError
+});
+
+function onSuccess(data) {
+  console.log(data);
+}
+
+function onError() {
+  console.log("Error");
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
