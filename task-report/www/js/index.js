@@ -26,8 +26,13 @@ $.ajax({
   error: onError
 });
 
-function onSuccess(data) {
-  console.log(data);
+function onSuccess(responceData) {
+  data = responceData["data"]
+  names = []
+  data.forEach(function(element){
+    names.push(element["member"]["name"])
+  })
+  console.log(names);
 }
 
 function onError() {
