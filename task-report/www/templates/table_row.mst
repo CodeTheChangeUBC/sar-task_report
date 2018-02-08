@@ -1,0 +1,16 @@
+ <form id="form-{{ DOMid }}">
+   <table id="{{ DOMid }}">
+    <caption>{{ title }}</caption>
+     {{ #data-list }}
+     <tr>
+       <td>   
+         <label>   
+           <input id='some-id' type='checkbox'>   
+           <div class='control_background'></div>   
+           {{ . }}
+         </label>   
+       </td>   
+     </tr> 
+     {{ /data-list }}
+  </table>
+</form>

@@ -1,0 +1,31 @@
+#attendee-table {
+  width: 500px;
+  margin: auto; }
+  #attendee-table td {
+    text-align: center;
+    height: 100px;
+    color: white;
+    position: relative; }
+    #attendee-table td label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 2em;
+      line-height: 100px; }
+    #attendee-table td .control_background {
+      background-color: #fc5d40;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: -1;
+      border-radius: 5px; }
+    #attendee-table td input:checked ~ .control_background {
+      background-color: #47c17e; }
+    #attendee-table td input {
+      opacity: 0;
+      cursor: pointer;
+      position: absolute; }

@@ -1,0 +1,34 @@
+table {
+  width: 500px;
+  margin: auto; }
+  table caption {
+    font-size: 2em;
+    font-weight: bold; }
+  table td {
+    text-align: center;
+    height: 100px;
+    color: white;
+    position: relative; }
+    table td label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 2em;
+      line-height: 100px; }
+    table td .control_background {
+      background-color: #fc5d40;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: -1;
+      border-radius: 5px; }
+    table td input:checked ~ .control_background {
+      background-color: #47c17e; }
+    table td input {
+      opacity: 0;
+      cursor: pointer;
+      position: absolute; }

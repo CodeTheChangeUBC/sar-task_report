@@ -17,27 +17,7 @@
  * under the License.
  */
 
-$.ajax({
-  type: "GET",
-  dataType: "json",
-  url: "https://api.ca.d4h.org/v2/team/attendance",
-  headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
-  success: onSuccess,
-  error: onError
-});
 
-function onSuccess(responceData) {
-  data = responceData["data"]
-  names = []
-  data.forEach(function(element){
-    names.push(element["member"]["name"])
-  })
-  console.log(names);
-}
-
-function onError() {
-  console.log("Error");
-}
 
 var app = {
     // Application Constructor
@@ -67,3 +47,9 @@ var app = {
 };
 
 app.initialize();
+
+// Pulling up first view
+Views.Activities();
+
+
+
