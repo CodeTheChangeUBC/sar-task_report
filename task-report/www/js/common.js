@@ -2,7 +2,7 @@
 
 function buildTable(tableObject) {
   // tableObject = { DOMid: ...., title: ... , data-list: [...]}
-  $.get('../templates/table_row.mst', (template) => {
+  $.get('../templates/table.mst', (template) => {
     var table = Mustache.render(template, tableObject );
     $('.app').html(table);
   })

@@ -1,13 +1,13 @@
- <form id="form-{{ DOMid }}">
+<form id="form-{{ DOMid }}">
    <table id="{{ DOMid }}">
     <caption>{{ title }}</caption>
      {{ #data-list }}
      <tr>
        <td>   
          <label>   
-           <input id='some-id' type='checkbox'>   
+           <input name="{{ groupName }}" id={{ id }} type={{ inputType }}>   
            <div class='control_background'></div>   
-           {{ . }}
+           {{ content }}
          </label>   
        </td>   
      </tr> 
