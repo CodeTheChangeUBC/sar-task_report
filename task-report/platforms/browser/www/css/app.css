@@ -1,5 +1,5 @@
 table {
-  width: 500px;
+  width: 800px;
   margin: auto; }
   table caption {
     font-size: 2em;
@@ -32,3 +32,15 @@ table {
       opacity: 0;
       cursor: pointer;
       position: absolute; }
+      input {
+        font-size: 2em;
+        font-weight: bold;
+        position: relative;
+        left: 41%;
+        margin-bottom: 20px;
+      }
+      h1{
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+      }

@@ -33,7 +33,10 @@ const Views = {
         buildTable({ DOMid: "attendee-table", inputType: "checkbox", title: "Attendees", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name}})});
         scrollToTop();
         var t = function() {
-          return Views.AttendeesConfirmed($('#form-attendee-table input').filter( (index,input) => {return input.checked}).map( (i,el) => { return {id: el.id, content: $(el).parent().text() } }).toArray());
+          return Views.AttendeesConfirmed($('#form-attendee-table input')
+            .filter( (index,input) => {return input.checked})
+            .map( (i,el) => { return {id: el.id, content: $(el).parent().text() } })
+            .toArray());
         };
         buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
       },

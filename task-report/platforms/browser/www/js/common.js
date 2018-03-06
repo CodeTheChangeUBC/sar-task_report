@@ -15,3 +15,20 @@ function buildButton(buttonObject) {
     $('#' + buttonObject.id).click(buttonObject.target);
   })
 };
+
+function searchBarUpdate() {
+    var input, filter, table, tr, label, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table= document.getElementsByTagName("table")[0];
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        label = tr[i].getElementsByTagName("label")[0];
+        if (label.textContent.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+
+        }
+    }
+}

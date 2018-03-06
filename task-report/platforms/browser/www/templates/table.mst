@@ -1,16 +1,20 @@
 <form id="form-{{ DOMid }}">
+  <h1>{{ title }}</h1>
+
+  <input type="text" id="myInput" onkeyup="searchBarUpdate()"
+  placeholder="Search for names.." title="Type in a name">
    <table id="{{ DOMid }}">
-    <caption>{{ title }}</caption>
      {{ #data-list }}
      <tr>
-       <td>   
-         <label>   
-           <input name="{{ groupName }}" id={{ id }} type={{ inputType }}>   
-           <div class='control_background'></div>   
+       <td>
+         <label>
+           <input name="{{ groupName }}" id={{ id }} type={{ inputType }}>
+           <div class='control_background'></div>
            {{ content }}
-         </label>   
-       </td>   
-     </tr> 
+         </label>
+       </td>
+     </tr>
      {{ /data-list }}
   </table>
+
 </form>
