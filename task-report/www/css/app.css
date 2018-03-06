@@ -29,6 +29,7 @@ table {
       opacity: 0;
       cursor: pointer;
       position: absolute; }
+
 .app {
   position: fixed;
   top: 0;
@@ -41,18 +42,26 @@ table {
   .app > .header {
     text-align: center;
     font-size: 3rem;
-    height: 10rem;
-    line-height: 10rem;
+    height: 6rem;
+    line-height: 6rem;
     color: white;
-    background-color: black; }
+    background-color: black;
+    position: relative; }
     .app > .header #back-button {
       position: absolute;
       left: 0;
-      height: 10rem;
+      top: 0;
+      bottom: 0;
       width: 2rem;
       background: url("../img/arrow_back.png") center no-repeat;
       padding-left: 1em;
       cursor: pointer; }
+  .app #search-bar {
+    line-height: 4rem;
+    height: 4rem;
+    font-size: 2rem;
+    width: 100%;
+    border: none; }
   .app > form {
     position: absolute;
     top: 10rem;
@@ -70,4 +79,3 @@ table {
     color: white;
     background-color: #fc5d40;
     cursor: pointer; }
->>>>>>> Played around with styling and the ordering of things. Now has a very simple and dumb back button - mantains state to some extend.

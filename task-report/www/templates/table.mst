@@ -1,8 +1,6 @@
+<input type="text" id="search-bar" onkeyup="searchBarUpdate()"
+  placeholder="Start typing...">
 <form id="form-{{ DOMid }}">
-  <h1>{{ title }}</h1>
-
-  <input type="text" id="myInput" onkeyup="searchBarUpdate()"
-  placeholder="Search for names.." title="Type in a name">
    <table id="{{ DOMid }}">
      {{ #data-list }}
      <tr>

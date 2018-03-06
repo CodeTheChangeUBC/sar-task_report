@@ -19,20 +19,30 @@ $font-stack: Arial, sans-serif;
   > .header {
     text-align: center;
     font-size: 3rem;
-    height: $space-top;
-    line-height: $space-top;
+    height: $space-top * 0.6;
+    line-height: $space-top * 0.6;
     color: white;
     background-color: black;
+    position: relative;
 
     #back-button {
       position: absolute;
       left: 0;
-      height: 10rem;
+      top:0;
+      bottom: 0;
       width: 2rem;
       background: url("../img/arrow_back.png") center no-repeat;
       padding-left: 1em;
       cursor: pointer;
     }
+  }
+
+  #search-bar {
+    line-height: $space-top * 0.4;
+    height: $space-top * 0.4;
+    font-size: 2rem;
+    width: 100%;
+    border: none;
   }
 
   > form {

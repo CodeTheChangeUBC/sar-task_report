@@ -30,7 +30,7 @@ function buildButton(buttonObject) {
 
 function searchBarUpdate() {
     var input, filter, table, tr, label, i;
-    input = document.getElementById("myInput");
+    input = document.getElementById("search-bar");
     filter = input.value.toUpperCase();
     table= document.getElementsByTagName("table")[0];
     tr = table.getElementsByTagName("tr");
