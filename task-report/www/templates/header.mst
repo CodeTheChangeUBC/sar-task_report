@@ -1,0 +1,4 @@
+<div class="header">
+  <div id="back-button"></div>
+  {{ title }}
+</div>

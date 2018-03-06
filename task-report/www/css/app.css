@@ -1,13 +1,11 @@
 table {
-  width: 800px;
-  margin: auto; }
+  width: 100%; }
   table caption {
     font-size: 2em;
     font-weight: bold; }
   table td {
     text-align: center;
     height: 100px;
-    color: white;
     position: relative; }
     table td label {
       position: absolute;
@@ -15,32 +13,61 @@ table {
       left: 0;
       right: 0;
       bottom: 0;
-      font-size: 2em;
       line-height: 100px; }
     table td .control_background {
-      background-color: #fc5d40;
+      background-color: #ebebec;
+      border: 1px solid #fc5d40;
       position: absolute;
       top: 0;
       bottom: 0;
       right: 0;
       left: 0;
-      z-index: -1;
-      border-radius: 5px; }
+      z-index: -1; }
     table td input:checked ~ .control_background {
-      background-color: #47c17e; }
+      background-color: #fc5d40; }
     table td input {
       opacity: 0;
       cursor: pointer;
       position: absolute; }
-      input {
-        font-size: 2em;
-        font-weight: bold;
-        position: relative;
-        left: 41%;
-        margin-bottom: 20px;
-      }
-      h1{
-        font-size: 2em;
-        font-weight: bold;
-        text-align: center;
-      }
+.app {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  max-width: 600px;
+  font: 2rem Arial, sans-serif; }
+  .app > .header {
+    text-align: center;
+    font-size: 3rem;
+    height: 10rem;
+    line-height: 10rem;
+    color: white;
+    background-color: black; }
+    .app > .header #back-button {
+      position: absolute;
+      left: 0;
+      height: 10rem;
+      width: 2rem;
+      background: url("../img/arrow_back.png") center no-repeat;
+      padding-left: 1em;
+      cursor: pointer; }
+  .app > form {
+    position: absolute;
+    top: 10rem;
+    bottom: 6rem;
+    width: 100%;
+    overflow-y: auto; }
+  .app > .button {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 6rem;
+    line-height: 6rem;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    background-color: #fc5d40;
+    cursor: pointer; }
+>>>>>>> Played around with styling and the ordering of things. Now has a very simple and dumb back button - mantains state to some extend.

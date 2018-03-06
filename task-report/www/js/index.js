@@ -23,6 +23,9 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        // Pulling up first view
+
+        Views.Activities();
     },
 
     // deviceready Event Handler
@@ -31,6 +34,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        document.addEventListener("backbutton", Views.OnBackButton, false);
     },
 
     // Update DOM on a Received Event
@@ -46,10 +50,9 @@ var app = {
     }
 };
 
-app.initialize();
 
-// Pulling up first view
-Views.Activities();
+// MAIN
+app.initialize();
 
 
 

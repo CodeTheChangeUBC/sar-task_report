@@ -10,11 +10,12 @@ const Views = {
       param: { after: (new Date()).toISOString() },
       headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
       success: (response) => {
-        buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", title: "Select Activity", "data-list": response.data.map( el => { return { id: el.id, content: el.ref_desc } } )});
+        buildHeader({ title: "Select Activity", hideBackButton: true });
+        buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.map( el => { return { id: el.id, content: el.ref_desc } } )});
         var t = function() {
           return Views.Attendees($('#form-activity-table input').filter( (index,input) => {return input.checked})[0].id);
         };
-        buildButton({ id: "button-get-attendees", text: "Select", target: t, parentSelector: ".app"});
+        buildButton({ id: "button-get-attendees", text: "Select", target: t, parentSelector: ".app"});;
       },
       error: () => {
         console.log(err)
@@ -23,6 +24,7 @@ const Views = {
   },
 
   Attendees: function(activityId) {
+    Views.State.Activity = activityId;
     $.ajax({
       type: "GET",
       dataType: "json",
@@ -30,7 +32,8 @@ const Views = {
       param: { activity_id: activityId },
       headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
       success: (response) => {
-        buildTable({ DOMid: "attendee-table", inputType: "checkbox", title: "Attendees", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name}})});
+        buildHeader({ title: "Attendees", target: Views.Activities });
+        buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name}})});
         scrollToTop();
         var t = function() {
           return Views.AttendeesConfirmed($('#form-attendee-table input')
@@ -47,11 +50,18 @@ const Views = {
   },
 
   AttendeesConfirmed: function(confirmedAttendees) {
-    buildTable({ DOMid: "attendee-confirmed-table", title: "Confirmed Attendees", "data-list": confirmedAttendees});
+    Views.State.ConfirmedAttendees = confirmedAttendees;
+    buildHeader({  title: "Confirmed Attendees", target: () => { Views.Attendees(Views.State.Activity) } });
+    buildTable({ DOMid: "attendee-confirmed-table", "data-list": confirmedAttendees});
+    $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
     scrollToTop()
-  }
+  },
+
+  // State: { Activity, ConfirmedAttendees}
+  State: {}
 }
 
 function scrollToTop() {
   $('html, body').animate({ scrollTop: 0 }, 'fast');
 }
+
