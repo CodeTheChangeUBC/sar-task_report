@@ -16,7 +16,7 @@ table {
       line-height: 100px; }
     table td .control_background {
       background-color: #ebebec;
-      border: 1px solid #fc5d40;
+      border-top: 1px solid #fc5d40;
       position: absolute;
       top: 0;
       bottom: 0;

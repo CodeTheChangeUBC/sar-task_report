@@ -24,8 +24,9 @@ var app = {
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         // Pulling up first view
-
-        Views.Activities();
+        Views.InitializeState();
+        Views.Launch()
+        // Views.Activities();
     },
 
     // deviceready Event Handler
