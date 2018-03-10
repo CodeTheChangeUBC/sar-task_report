@@ -68,12 +68,13 @@ const Views = {
   },
 
   // State: { Activity, ConfirmedAttendees}
-  State: {},
   InitializeState: function() {
     var oldState = window.localStorage.getItem("sar-state");
-    if (oldState != "null") {
+    if (oldState != "null" && oldState != undefined) {
       Views.State = JSON.parse(oldState);
       // alert('Previous state: ' + JSON.stringify(Views.State));
+    } else {
+      Views.State = {}
     }
     window.setInterval(() => { 
       if (Views.State != null) {
