@@ -20,7 +20,7 @@ const Views = {
         buildHeader({ title: "Select Activity", hideBackButton: true });
         buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.map( el => { return { id: el.id, content: el.ref_desc } } )});
         var t = function() {
-          return Views.Attendees($('#form-activity-table input').filter( (index,input) => {return input.checked})[0].id);
+          return Views.Attendees($('#form-activity-table input').filter( (index,input) => {return input.checked}).attr('data-id'));
         };
         buildButton({ id: "button-get-attendees", text: "Select", target: t, parentSelector: ".app"});;
       },
@@ -35,8 +35,7 @@ const Views = {
     $.ajax({
       type: "GET",
       dataType: "json",
-      url: "https://api.ca.d4h.org/v2/team/attendance",
-      param: { activity_id: activityId },
+      url: "https://api.ca.d4h.org/v2/team/attendance?activity_id=" + activityId,
       headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
       success: (response) => {
         Views.State.allAttendanceRecords = response.data;
@@ -46,7 +45,7 @@ const Views = {
         var t = function() {
           return Views.AttendeesConfirmed($('#form-attendee-table input')
             .filter( (index,input) => {return input.checked})
-            .map( (i,el) => { return {id: el.id, content: $(el).parent().text() } })
+            .map( (i,el) => { return {id: $(el).attr('data-id'), content: $(el).parent().text() } })
             .toArray());
         };
         buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
@@ -63,7 +62,7 @@ const Views = {
     buildTable({ DOMid: "attendee-confirmed-table", "data-list": confirmedAttendees });
     $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
     scrollToTop()
-    buildButton({ id: "button-confirm-attendees", text: "Lock In", target: sendToDatabase, parentSelector: ".app"}); 
+    buildButton({ id: "button-confirm-attendees", text: "Lock In", target: sendToDatabase, parentSelector: ".app"});
 
   },
 
@@ -76,13 +75,13 @@ const Views = {
     } else {
       Views.State = {}
     }
-    window.setInterval(() => { 
+    window.setInterval(() => {
       if (Views.State != null) {
         window.localStorage.setItem("sar-state", JSON.stringify(Views.State))
         }
       }
       , 500);
-  } 
+  }
 }
 
 function scrollToTop() {
@@ -90,9 +89,9 @@ function scrollToTop() {
 }
 
 function findAttendanceRecord(memberId) {
-  var recordId; 
+  var recordId;
   for (record of Views.State.allAttendanceRecords) {
-    if (record.member.id == memberId) { 
+    if (record.member.id == memberId) {
       recordId = record.id;
       break;
     }
@@ -123,6 +122,3 @@ function sendToDatabase() {
       });
   }
 }
-
-
-

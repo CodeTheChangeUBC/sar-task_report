@@ -7,7 +7,7 @@
        <td>
          <label>
           {{^status}}
-           <input name="{{ groupName }}" id={{ id }} type={{ inputType }}>
+           <input name="{{ groupName }}" data-id={{ id }} type={{ inputType }}>
            {{/status}}
            {{#status}}
             <input name="{{ groupName }}" checked=true id={{ id }} type={{ inputType }}>
