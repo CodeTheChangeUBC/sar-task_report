@@ -24,8 +24,7 @@ var app = {
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         // Pulling up first view
-        Views.InitializeState();
-        Views.Launch()
+
         // Views.Activities();
     },
 
@@ -34,8 +33,10 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-        document.addEventListener("backbutton", Views.OnBackButton, false);
+        //this.receivedEvent('deviceready');
+        //document.addEventListener("backbutton", Views.OnBackButton, false);
+        Views.InitializeState();
+        Views.Launch();
     },
 
     // Update DOM on a Received Event
@@ -54,6 +55,3 @@ var app = {
 
 // MAIN
 app.initialize();
-
-
-
