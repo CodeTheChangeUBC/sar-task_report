@@ -16,10 +16,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        // Pulling up first view
+        Views.InitializeState();
+        Views.Launch()
+        // Views.Activities();
     },
 
     // deviceready Event Handler
@@ -28,6 +35,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        document.addEventListener("backbutton", Views.OnBackButton, false);
     },
 
     // Update DOM on a Received Event
@@ -43,4 +51,9 @@ var app = {
     }
 };
 
+
+// MAIN
 app.initialize();
+
+
+
