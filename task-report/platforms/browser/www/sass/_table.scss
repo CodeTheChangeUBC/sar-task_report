@@ -1,8 +1,6 @@
 // partials for a simple table
-table {
-  width: 500px;
-  margin: auto;
-  
+table {  
+  width: 100%;
   caption {
     font-size: 2em;
     font-weight: bold;
@@ -10,7 +8,6 @@ table {
   td {
     text-align: center;
     height: 100px;
-    color: white;
     position: relative;
 
     label {
@@ -19,23 +16,22 @@ table {
       left: 0;
       right: 0;
       bottom: 0;
-      font-size: 2em;
       line-height: 100px;
     }
 
     .control_background {
-      background-color: lighten(#FC4827, 5%);
+      background-color: #ebebec;
+      border-top: 1px solid lighten(#FC4827, 5%);
       position:absolute;
       top: 0;
       bottom: 0;
       right: 0;
       left: 0;
       z-index: -1;
-      border-radius: 5px;
     }
 
     input:checked ~ .control_background {
-      background-color: lighten(#3CB371, 5%);
+      background-color: lighten(#FC4827, 5%);
     }
 
     input {

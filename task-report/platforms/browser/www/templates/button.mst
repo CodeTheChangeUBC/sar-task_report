@@ -1,1 +1,1 @@
-<input id={{ id }} type="button" value={{ text }} />
+<div id={{ id }} class="button" >{{text}}</div>

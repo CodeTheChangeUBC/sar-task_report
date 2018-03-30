@@ -1,10 +1,22 @@
 // Commonly shared elements/tasks
 
+function buildHeader(headerObject) {
+  $.get('../templates/header.mst', (template) => {
+    var header = Mustache.render(template, headerObject );
+    $('.app').html(header); // whipe all previous
+    if (!headerObject.hideBackButton) {
+      $('#back-button').click(headerObject.target)
+    } else {
+      $('#back-button').hide()
+    }
+  })  
+}
+
 function buildTable(tableObject) {
   // tableObject = { DOMid: ...., title: ... , data-list: [...]}
   $.get('../templates/table.mst', (template) => {
     var table = Mustache.render(template, tableObject );
-    $('.app').html(table);
+    $('.app').append(table);
   })
 };
 
@@ -18,7 +30,7 @@ function buildButton(buttonObject) {
 
 function searchBarUpdate() {
     var input, filter, table, tr, label, i;
-    input = document.getElementById("myInput");
+    input = document.getElementById("search-bar");
     filter = input.value.toUpperCase();
     table= document.getElementsByTagName("table")[0];
     tr = table.getElementsByTagName("tr");
