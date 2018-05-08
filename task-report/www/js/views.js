@@ -5,7 +5,8 @@ const Views = {
     if (Views.State.Activity) {
       Views.Attendees(Views.State.Activity);
     } else {
-      Views.Login();
+      Views.State.token = "ac58bc1485ef03d4e5a815a6785bc8f4feefe27a";
+      Views.Activities();
     }
   },
 
@@ -40,12 +41,13 @@ const Views = {
     $.ajax({
       type: "GET",
       dataType: "json",
-      url: "https://api.ca.d4h.org/v2/team/activities",
+      url: "https://api.ca.d4h.org/v2/team/incidents",
       param: { after: (new Date()).toISOString() },
       headers: { Authorization: "Bearer " + Views.State.token},
       success: (response) => {
         buildHeader({ title: "Select Activity", hideBackButton: true });
-        buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.map( el => { return { id: el.id, content: el.ref_desc } } )});
+        buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.reverse().map( el => { return { id: el.id, content: el.ref_desc } } )});
+        console.log(response);
         var t = function() {
           return Views.Attendees($('#form-activity-table input').filter( (index,input) => {return input.checked}).attr('data-id'));
         };
@@ -57,13 +59,20 @@ const Views = {
     });
   },
 
+  CreateActivity: function() {
+    $.ajax({
+      type: "POST",
+      d
+    });
+  },
+
   Attendees: function(activityId) {
     Views.State.Activity = activityId;
     $.ajax({
       type: "GET",
       dataType: "json",
       url: "https://api.ca.d4h.org/v2/team/attendance?activity_id=" + activityId,
-      headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
+      headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
       success: (response) => {
         Views.State.allAttendanceRecords = response.data;
         buildHeader({ title: "Attendees", target: Views.Activities });
@@ -103,12 +112,12 @@ const Views = {
     // } else {
     //   Views.State = {}
     // }
-  //   window.setInterval(() => {
-  //     if (Views.State != null) {
-  //       window.localStorage.setItem("sar-state", JSON.stringify(Views.State))
-  //       }
-  //     }
-  //     , 500);
+    // window.setInterval(() => {
+    //   if (Views.State != null) {
+    //     window.localStorage.setItem("sar-state", JSON.stringify(Views.State))
+    //     }
+    //   }
+    //   , 500);
   }
 }
 
@@ -137,7 +146,7 @@ function sendToDatabase() {
     $.ajax({
         type: "PUT",
         url: "https://api.ca.d4h.org/v2/team/attendance/" + aRecordId,
-        headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
+        headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
         data: formData,
         processData: false, // need this or will return 'boundary not set' error (?)
         contentType: false, // same here - basically, we need jQuery to fall back to 'default'
