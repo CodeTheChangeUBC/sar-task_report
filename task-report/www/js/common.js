@@ -1,15 +1,22 @@
 // Commonly shared elements/tasks
 
+function createNavbar(navbar) {
+  $.get('../templates/navbar.mst', (template) => {
+    var nav = Mustache.render(template, navbar);
+    $('.app').html(nav);
+  });
+}
+
 function buildHeader(headerObject) {
   $.get('../templates/header.mst', (template) => {
     var header = Mustache.render(template, headerObject );
-    $('.app').html(header); // whipe all previous
+    $('.app').append(header); // wipe all previous
     if (!headerObject.hideBackButton) {
       $('#back-button').click(headerObject.target)
     } else {
       $('#back-button').hide()
     }
-  })  
+  })
 }
 
 function buildTable(tableObject) {
