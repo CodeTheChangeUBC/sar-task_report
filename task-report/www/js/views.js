@@ -61,15 +61,14 @@ const Views = {
       param: { after: (new Date()).toISOString() },
       headers: { Authorization: "Bearer " + Views.State.token},
       success: (response) => {
-        console.log(createNavbar({ incidentClass: "active", repairClass: "inactive", resourcesClass: "inactive" }));
-        createNavbar({ incidentClass: "active", repairClass: "inactive", resourcesClass: "inactive" });
-        buildHeader({ title: "Select Activity", hideBackButton: true });
-        buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.reverse().map( el => { return { id: el.id, content: el.ref_desc } } )});
+        createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
+        buildHeader({ title: "Activities", hideBackButton: true });
+        // buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.reverse().map( el => { return { id: el.id, content: el.ref_desc } } )});
         console.log(response);
         var t = function() {
           return Views.Attendees($('#form-activity-table input').filter( (index,input) => {return input.checked}).attr('data-id'));
         };
-        buildButton({ id: "button-get-attendees", text: "Select", target: t, parentSelector: ".app"});;
+        // buildButton({ id: "button-get-attendees", text: "Select", target: t, parentSelector: ".app"});;
       },
       error: () => {
         console.log(err)
@@ -122,10 +121,14 @@ const Views = {
 
   Repair: function() {
     // do something
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "repairs" });
+    buildHeader({ title: "Repair", hideBackButton: true });
   },
 
   Resources: function() {
     // do something
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "resources" });
+    buildHeader({ title: "Resources", hideBackButton: true });
   },
 
   // State: { Activity, ConfirmedAttendees}

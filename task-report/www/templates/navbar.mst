@@ -1,20 +1,13 @@
-<nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand" href="#">SAR</a>
-  <!-- possibly insert a logo -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav">
-      <li class="nav-item {{ incidentClass }}">
-        <a class="nav-link" href="#">Create an Incident</a>
-      </li>
-      <li class="nav-item {{ repairClass }}">
-        <a class="nav-link" href="#">Repair Form</a>
-      </li>
-      <li class="nav-item {{ resourcesClass }}">
-        <a class="nav-link" href="#">Find Resources</a>
-      </li>
-    </ul>
-  </div>
+<nav class="navbar sticky-top navbar-expand navbar-dark bg-dark">
+  <ul class="navbar-nav mr-auto w-100 d-flex justify-content-between justify-content-sm-start">
+    <li id="activities" class="nav-item d-flex align-items-center">
+      <a class="nav-link p-2 p-sm-3" href="#">Activities</a>
+    </li>
+    <li id="repairs" class="nav-item d-flex align-items-center">
+      <a class="nav-link p-2 p-sm-3" href="#">Repairs</a>
+    </li>
+    <li id="resources" class="nav-item d-flex align-items-center">
+      <a class="nav-link p-2 p-sm-3" href="#">Resources</a>
+    </li>
+  </ul>
 </nav>

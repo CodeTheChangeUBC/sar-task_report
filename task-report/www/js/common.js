@@ -4,6 +4,10 @@ function createNavbar(navbar) {
   $.get('../templates/navbar.mst', (template) => {
     var nav = Mustache.render(template, navbar);
     $('.app').html(nav);
+    $('#activities').click(navbar.target1);
+    $('#repairs').click(navbar.target2);
+    $('#resources').click(navbar.target3);
+    $('#' + navbar.active).addClass("active");
   });
 }
 
