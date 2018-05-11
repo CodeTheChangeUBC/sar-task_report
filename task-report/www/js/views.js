@@ -122,7 +122,31 @@ const Views = {
   Repair: function() {
     // do something
     createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "repairs" });
-    buildHeader({ title: "Repair", hideBackButton: true });
+    buildHeader({ title: "Submit a Request to Repair a Resource", hideBackButton: true });
+    $.get('../templates/repair_form.mst', (template) => {
+         var renderString = Mustache.render(template);
+         $('.app').append(renderString);
+         buildButton({ id: "repair_resource_submit", text: "Submit", target: repair_submit, parentSelector: ".app"});
+      })
+
+    var repair_submit = function(){
+      console.log($("#repair_form").serialize())
+      $.ajax({
+              type: "POST",
+              url: "https://api.ca.d4h.org/v2/team/repairs",
+              headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
+              data: $("form").serialize(),
+              // processData: false, // need this or will return 'boundary not set' error (?)
+              // contentType: false, // same here - basically, we need jQuery to fall back to 'default'
+              success: (response) => {
+                console.log(response)
+              },
+              error: (err) => {
+                console.log(err)
+                alert("Form was not submitted: " + err.responseJSON.message);
+              }
+            });
+    }
   },
 
   Resources: function() {

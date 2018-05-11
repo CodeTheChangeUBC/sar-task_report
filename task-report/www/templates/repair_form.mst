@@ -1,0 +1,22 @@
+<form method = "post" id = "repair_form">
+  Fields with a * must be filled in <br>
+  Equipment Id*: <input type = "number" name = "equipment_id" value = "" placeholder="Equipment Id"><br>
+  Title*: <input type = "text" name = "title" value= "" placeholder="Title"><br>
+  Cause*: <select name="caused_by">
+            <option value="0">Unknown</option>
+            <option value="1">Natural Deterioration</option>
+            <option value="2">Being Used as Intended</option>
+            <option value="3">Incorrect Operation</option>
+          </select><br>
+  Status*:<select name="status">
+            <option value="0">Not Started</option>
+            <option value="8">In Progress</option>
+            <option value="1">Completed</option>
+          </select><br>
+  Member Id: <input type = "number" name = "member_id" value = "" placeholder="Member Id"><br>
+  Repair Cost: <input type = "number" name = "repair_cost" value = "" placeholder="Repair Cost"><br>
+  Date Due: <input type = "date" name = "date_due" value = "" placeholder="Date Due"><br/>
+  Activity Id: <input type = "number" name = "activity_id" value = "" placeholder="Activity Id"><br>
+</form>
+
+  Description: <textarea name = "description" form = "repair_form">Enter Description Here...</textarea>
