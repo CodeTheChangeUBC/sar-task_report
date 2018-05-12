@@ -1,0 +1,68 @@
+// // Collection file for all styles
+// @import 'table';
+
+// // Constants
+// $space-top: 10rem;
+// $space-bottom: 6rem;
+// $font-stack: Arial, sans-serif;
+
+// .app {
+//   position: fixed;
+//   top: 0;
+//   bottom: 0;
+//   left: 50%;
+//   transform: translate(-50%);
+//   width: 100%;
+//   max-width: 600px;
+//   font: 2rem $font-stack;
+
+//   > .header {
+//     text-align: center;
+//     font-size: 3rem;
+//     height: $space-top * 0.6;
+//     line-height: $space-top * 0.6;
+//     color: white;
+//     background-color: black;
+//     position: relative;
+
+//     #back-button {
+//       position: absolute;
+//       left: 0;
+//       top:0;
+//       bottom: 0;
+//       width: 2rem;
+//       background: url("../img/arrow_back.png") center no-repeat;
+//       padding-left: 1em;
+//       cursor: pointer;
+//     }
+//   }
+
+//   #search-bar {
+//     line-height: $space-top * 0.4;
+//     height: $space-top * 0.4;
+//     font-size: 2rem;
+//     width: 100%;
+//     border: none;
+//   }
+
+//   > form {
+//     position: absolute;
+//     top: $space-top;
+//     bottom: $space-bottom;
+//     width: 100%;
+//     overflow-y: auto;
+//   }
+
+//   > .button {
+//     position: absolute;
+//     bottom: 0;
+//     width: 100%;
+//     height: $space-bottom;
+//     line-height: $space-bottom;
+//     text-align: center;
+//     font-weight: bold;
+//     color: white;
+//     background-color: lighten(#FC4827, 5%);
+//     cursor: pointer;
+//   }
+// }
