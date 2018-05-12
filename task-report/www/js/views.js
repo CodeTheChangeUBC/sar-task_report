@@ -127,6 +127,8 @@ const Views = {
       var renderString = Mustache.render(template,empty_form_object);
       $('.app').append(renderString);
       buildButton({ id: "repair_resource_submit", text: "Submit", target: repair_submit, parentSelector: ".app"});
+      buildButton({ id: "repair_resource_save", text: "Save All Changes", target: repair_save, parentSelector: ".app"});
+      buildButton({ id: "repair_resource_clear", text: "Clear All", target: repair_clear, parentSelector: ".app"});
 
         if (Views.State.repair_form) {
           console.log("trying to restore previous values")
@@ -138,6 +140,15 @@ const Views = {
             })
         }
       })
+
+    var repair_clear = function(){
+      $("#repair_form")[0].reset();
+    }
+
+    var repair_save = function(){
+      Views.State.repair_form = $("#repair_form").serializeArray();
+    }
+
 
     var repair_submit = function(){
       console.log($("#repair_form").serialize());
