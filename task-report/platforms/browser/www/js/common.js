@@ -18,9 +18,35 @@ function buildHeader(headerObject) {
     if (!headerObject.hideBackButton) {
       $('#back-button').click(headerObject.target)
     } else {
-      $('#back-button').hide()
+      $('#back-button').hide();
     }
   })
+}
+
+function createIncident(incidentObject) {
+  $.get('../templates/create-activity-form.mst', (template) => {
+    var form = Mustache.render(template, incidentObject);
+    $('.app').append(form);
+    if (localStorage.getItem("incidentTitle")) {
+      $('#incidentTitle').val(localStorage.getItem("incidentTitle"));
+    }
+    if (localStorage.getItem("incidentStartDate")) {
+      $('#incidentStartDate').val(localStorage.getItem("incidentStartDate"));
+    }
+    if (localStorage.getItem("incidentEndDate")) {
+      $('#incidentEndDate').val(localStorage.getItem("incidentEndDate"));
+    }
+  });
+}
+
+function myFunction() {
+  var incidentTitle = document.getElementById("incidentTitle");
+  var incidentStartDate = document.getElementById("incidentStartDate");
+  var incidentEndDate = document.getElementById("incidentEndDate");
+  localStorage.setItem("incidentTitle", incidentTitle.value);
+  localStorage.setItem("incidentStartDate", incidentStartDate.value);
+  localStorage.setItem("incidentEndDate", incidentEndDate.value);
+  Views.Members();
 }
 
 function buildTable(tableObject) {
@@ -36,6 +62,11 @@ function buildButton(buttonObject) {
     var button = Mustache.render(template, buttonObject );
     $(buttonObject.parentSelector).append(button);
     $('#' + buttonObject.id).click(buttonObject.target);
+    $('#submit-incident').click(function() {
+      localStorage.removeItem("incidentTitle");
+      localStorage.removeItem("incidentStartDate");
+      localStorage.removeItem("incidentEndDate");
+    });
   })
 };
 

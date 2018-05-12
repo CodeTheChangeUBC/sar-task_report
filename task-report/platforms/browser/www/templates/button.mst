@@ -1,1 +1,7 @@
-<div id={{ id }} class="button" >{{text}}</div>
+<div class="button container fixed-bottom">
+    <div class="row">
+      <div class="col p-0">
+        <div id={{ id }} class="btn btn-primary btn-lg btn-block rounded-0" >{{text}}</div>
+      </div>
+  </div>
+</div>

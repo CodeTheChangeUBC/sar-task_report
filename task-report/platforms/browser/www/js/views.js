@@ -6,6 +6,7 @@ const Views = {
       Views.Activities(Views.State.Activity);
     } else {
       Views.State.token = "ac58bc1485ef03d4e5a815a6785bc8f4feefe27a";
+      getAndStoreMembersList();
       Views.Activities();
     }
   },
@@ -54,26 +55,31 @@ const Views = {
 
   // Views: this,
   Activities: function() {
-    $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "https://api.ca.d4h.org/v2/team/incidents",
-      param: { after: (new Date()).toISOString() },
-      headers: { Authorization: "Bearer " + Views.State.token},
-      success: (response) => {
-        createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
-        buildHeader({ title: "Activities", hideBackButton: true });
-        // buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": response.data.reverse().map( el => { return { id: el.id, content: el.ref_desc } } )});
-        console.log(response);
-        var t = function() {
-          return Views.Attendees($('#form-activity-table input').filter( (index,input) => {return input.checked}).attr('data-id'));
-        };
-        // buildButton({ id: "button-get-attendees", text: "Select", target: t, parentSelector: ".app"});;
-      },
-      error: () => {
-        console.log(err)
-      }
-    });
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
+    buildHeader({ title: "Create Incident", hideBackButton: true });
+    createIncident({startDate: getDate(), endDate: getDate()});
+  },
+
+  Members: function() {
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
+    buildHeader({ title: "Choose Attendees", target: Views.Activities });
+    var lom1;
+    var lom2;
+    var lom3;
+    if (localStorage.getItem("members")) {
+      console.log("Retreiving stored members list...");
+      var members = JSON.parse(localStorage.getItem("members"));
+      buildTable({ DOMid: "choose-attendees-table", inputType: "checkbox", "data-list": members.map(el => { return { id: el.id, content: el.name } }) });
+    } else {
+      console.log("Epic fail!!!");
+    }
+    buildButton({ id: "button-show-attendees", text: "Continue", target: Views.Report, parentSelector: ".app"});
+  },
+
+  Report: function() {
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
+    buildHeader({ title: "Fill Report", target: Views.Members });
+    buildButton({ id: "submit-incident", text: "Submit", target: Views.Activities, parentSelector: ".app"});
   },
 
   CreateActivity: function() {
@@ -85,6 +91,8 @@ const Views = {
 
   Attendees: function(activityId) {
     Views.State.Activity = activityId;
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
+    buildHeader({ title: "Attendees", target: Views.Activities });
     $.ajax({
       type: "GET",
       dataType: "json",
@@ -92,7 +100,6 @@ const Views = {
       headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
       success: (response) => {
         Views.State.allAttendanceRecords = response.data;
-        buildHeader({ title: "Attendees", target: Views.Activities });
         buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name, status: el.status === "attending" }})});
         scrollToTop();
         var t = function() {

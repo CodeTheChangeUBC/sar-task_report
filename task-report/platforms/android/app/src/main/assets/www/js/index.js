@@ -17,32 +17,15 @@
  * under the License.
  */
 
-$.ajax({
-  type: "GET",
-  dataType: "json",
-  url: "https://api.ca.d4h.org/v2/team/attendance",
-  headers: { Authorization: "Bearer 65dbc92f80012cdbc4e556806adef646e8b8fa98"},
-  success: onSuccess,
-  error: onError
-});
 
-function onSuccess(responceData) {
-  data = responceData["data"]
-  names = []
-  data.forEach(function(element){
-    names.push(element["member"]["name"])
-  })
-  console.log(names);
-}
-
-function onError() {
-  console.log("Error");
-}
 
 var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        // Pulling up first view
+
+        // Views.Activities();
     },
 
     // deviceready Event Handler
@@ -50,7 +33,10 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        this.receivedEvent('deviceready');
+        //this.receivedEvent('deviceready');
+        //document.addEventListener("backbutton", Views.OnBackButton, false);
+        Views.InitializeState();
+        Views.Launch();
     },
 
     // Update DOM on a Received Event
@@ -66,4 +52,6 @@ var app = {
     }
 };
 
+
+// MAIN
 app.initialize();

@@ -13,6 +13,53 @@ function findAttendanceRecord(memberId) {
   return recordId;
 }
 
+function getDate() {
+  var d = new Date();
+  var month = d.getMonth() + 1;
+  var day = d.getDate();
+  var hour = d.getHours();
+  var minute = d.getMinutes();
+  var output = d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day + 'T' + (hour < 10 ? '0' : '') + hour + ':' + (minute < 10 ? '0' : '') + minute ;
+  return output;
+}
+
+function getAndStoreMembersList() {
+  if (!localStorage.getItem("members")) { //add or condition for when its X days old
+    console.log("Making database call for members...");
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "https://api.ca.d4h.org/v2/team/members",
+      headers: { Authorization: "Bearer " + Views.State.token },
+      success: (response) => {
+        lom1=response.data;
+        $.ajax({
+          type: "GET",
+          dataType: "json",
+          url: "https://api.ca.d4h.org/v2/team/members?offset=250",
+          headers: { Authorization: "Bearer " + Views.State.token },
+          success: (response2) => {
+            lom2 = response2.data;
+            lom3 = $.merge(lom1, lom2);
+            localStorage.setItem("members", JSON.stringify(lom3));
+            return true;
+            // var members = JSON.parse(localStorage.getItem("members"));
+            // buildTable({ DOMid: "choose-attendees-table", inputType: "checkbox", "data-list": members.map(el => { return { id: el.id, content: el.name } }) });
+          },
+          error: (err) => {
+            console.log(err);
+            return false;
+          }
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        return false;
+      }
+    });
+  }
+}
+
 function sendToDatabase() {
   for (attendee of Views.State.ConfirmedAttendees) {
     var aRecordId = findAttendanceRecord(attendee.id)
