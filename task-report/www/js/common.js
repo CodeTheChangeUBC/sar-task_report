@@ -20,7 +20,7 @@ function buildHeader(headerObject) {
     } else {
       $('#back-button').hide();
     }
-  })
+  });
 }
 
 function createIncident(incidentObject) {
@@ -54,7 +54,7 @@ function buildTable(tableObject) {
   $.get('../templates/table.mst', (template) => {
     var table = Mustache.render(template, tableObject );
     $('.app').append(table);
-  })
+  });
 };
 
 function buildButton(buttonObject) {
@@ -67,7 +67,7 @@ function buildButton(buttonObject) {
       localStorage.removeItem("incidentStartDate");
       localStorage.removeItem("incidentEndDate");
     });
-  })
+  });
 };
 
 function searchBarUpdate() {

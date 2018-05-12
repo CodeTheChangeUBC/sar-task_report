@@ -7,9 +7,6 @@
       <li id="repairs" class="nav-item d-flex align-items-center">
         <a class="nav-link p-2 p-sm-3" href="#">Repairs</a>
       </li>
-      <li id="resources" class="nav-item d-flex align-items-center">
-        <a class="nav-link p-2 p-sm-3" href="#">Resources</a>
-      </li>
     </ul>
   <div class="container">
 </nav>
