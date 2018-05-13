@@ -5,8 +5,8 @@ function createNavbar(navbar) {
     var nav = Mustache.render(template, navbar);
     $('.app').html(nav);
     $('#activities').click(navbar.target1);
-    $('#repairs').click(navbar.target2);
-    $('#resources').click(navbar.target3);
+    $('#attendance').click(navbar.target2);
+    $('#repairs').click(navbar.target3);
     $('#' + navbar.active).addClass("active");
   });
 }
@@ -69,6 +69,13 @@ function buildButton(buttonObject) {
     });
   });
 };
+
+function createErrorMessage(messageObject) {
+  $.get('../templates/error-message.mst', (template) => {
+    var message = Mustache.render(template, messageObject);
+    $('.app').append(message);
+  });
+}
 
 function searchBarUpdate() {
     var input, filter, table, tr, label, i;

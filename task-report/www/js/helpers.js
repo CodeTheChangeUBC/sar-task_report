@@ -60,6 +60,26 @@ function getAndStoreMembersList() {
   }
 }
 
+function getAndStoreIncidents() {
+  if (!localStorage.getItem("incidents")) { //add or condition for when its X days old
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: "https://api.ca.d4h.org/v2/team/incidents",
+      param: { after: (new Date()).toISOString() },
+      headers: { Authorization: "Bearer " + Views.State.token},
+      success: (response) => {
+        localStorage.setItem("incidents", JSON.stringify(response.data));
+        return true;
+      },
+      error: () => {
+        console.log(err);
+        return false;
+      }
+    });
+  }
+}
+
 function sendToDatabase() {
   for (attendee of Views.State.ConfirmedAttendees) {
     var aRecordId = findAttendanceRecord(attendee.id)

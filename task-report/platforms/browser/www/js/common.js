@@ -5,8 +5,8 @@ function createNavbar(navbar) {
     var nav = Mustache.render(template, navbar);
     $('.app').html(nav);
     $('#activities').click(navbar.target1);
-    $('#repairs').click(navbar.target2);
-    $('#resources').click(navbar.target3);
+    $('#attendance').click(navbar.target2);
+    $('#repairs').click(navbar.target3);
     $('#' + navbar.active).addClass("active");
   });
 }
@@ -20,7 +20,7 @@ function buildHeader(headerObject) {
     } else {
       $('#back-button').hide();
     }
-  })
+  });
 }
 
 function createIncident(incidentObject) {
@@ -54,7 +54,7 @@ function buildTable(tableObject) {
   $.get('../templates/table.mst', (template) => {
     var table = Mustache.render(template, tableObject );
     $('.app').append(table);
-  })
+  });
 };
 
 function buildButton(buttonObject) {
@@ -67,8 +67,15 @@ function buildButton(buttonObject) {
       localStorage.removeItem("incidentStartDate");
       localStorage.removeItem("incidentEndDate");
     });
-  })
+  });
 };
+
+function createErrorMessage(messageObject) {
+  $.get('../templates/error-message.mst', (template) => {
+    var message = Mustache.render(template, messageObject);
+    $('.app').append(message);
+  });
+}
 
 function searchBarUpdate() {
     var input, filter, table, tr, label, i;

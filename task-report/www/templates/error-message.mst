@@ -1,0 +1,9 @@
+<div class="error-message container">
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        <strong>Error. </strong>{{message}}
+      </div>
+    </div>
+  </div>
+</div>
