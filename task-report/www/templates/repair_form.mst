@@ -1,14 +1,14 @@
 <form method = "post" id = "repair_form">
   Fields with a * must be filled in. <br>
-  Equipment Id*: <input type = "number" name = "equipment_id" required value = {{equipment_id_value}} ><br>
-  Title*: <input type = "text" name = "title" placeholder="" required value= {{title_value}} ><br>
-  Cause*: <select name="caused_by" required>
+  Equipment Id*: <input type = "number" name = "equipment_id" value = {{equipment_id_value}}><br>
+  Title*: <input type = "text" name = "title" value= {{title_value}}><br>
+  Cause*: <select name="caused_by">
             <option value="0">Unknown</option>
             <option value="1">Natural Deterioration</option>
             <option value="2">Being Used as Intended</option>
             <option value="3">Incorrect Operation</option>
           </select><br>
-  Status*:<select name="status" required>
+  Status*:<select name="status">
             <option value="0">Not Started</option>
             <option value="8">In Progress</option>
             <option value="1">Completed</option>
@@ -17,5 +17,6 @@
   Repair Cost: <input type = "number" name = "repair_cost" value = {{repair_cost_value}} ><br>
   Date Due: <input type = "date" name = "date_due" value = {{date_due_value}} ><br/>
   Activity Id: <input type = "number" name = "activity_id" value = {{activity_id_value}} ><br>
-  Description: <textarea name = "description">{{description_value}}</textarea>
 </form>
+
+  Description: <textarea name = "description" form = "repair_form">{{description_value}}</textarea>
