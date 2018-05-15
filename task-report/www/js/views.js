@@ -131,12 +131,9 @@ const Views = {
       buildButton({ id: "repair_resource_clear", text: "Clear All", target: repair_clear, parentSelector: ".app"});
 
         if (Views.State.repair_form) {
-          console.log("trying to restore previous values")
           previous_form_values = Views.State.repair_form;
-          console.log(previous_form_values);
             previous_form_values.forEach(function(arrayItem){
               $("[name="+arrayItem.name+"]").val(arrayItem.value)
-              console.log($("[name="+arrayItem.name+"]"));
             })
         }
       })
@@ -149,16 +146,15 @@ const Views = {
       Views.State.repair_form = $("#repair_form").serializeArray();
     }
 
-
     var repair_submit = function(){
-      console.log($("#repair_form").serialize());
       Views.State.repair_form = $("#repair_form").serializeArray();
-      console.log("stored the array" + Views.State.repair_form)
       $.ajax({
               type: "POST",
               url: "https://api.ca.d4h.org/v2/team/repairs",
               headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
-              data: $("form").serialize(),
+              data: $("#repair_form :input").filter(function(index, element) {
+                                          return $(element).val() != '';
+                                                }).serialize(),
               success: (response) => {
                 console.log(response)
                 alert("Form successfully submitted")
