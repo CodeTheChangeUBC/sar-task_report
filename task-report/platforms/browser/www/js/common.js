@@ -5,8 +5,8 @@ function createNavbar(navbar) {
     var nav = Mustache.render(template, navbar);
     $('.app').html(nav);
     $('#activities').click(navbar.target1);
-    $('#repairs').click(navbar.target2);
-    $('#resources').click(navbar.target3);
+    $('#attendance').click(navbar.target2);
+    $('#repairs').click(navbar.target3);
     $('#' + navbar.active).addClass("active");
   });
 }
@@ -18,9 +18,35 @@ function buildHeader(headerObject) {
     if (!headerObject.hideBackButton) {
       $('#back-button').click(headerObject.target)
     } else {
-      $('#back-button').hide()
+      $('#back-button').hide();
     }
-  })
+  });
+}
+
+function createIncident(incidentObject) {
+  $.get('../templates/create-activity-form.mst', (template) => {
+    var form = Mustache.render(template, incidentObject);
+    $('.app').append(form);
+    if (localStorage.getItem("incidentTitle")) {
+      $('#incidentTitle').val(localStorage.getItem("incidentTitle"));
+    }
+    if (localStorage.getItem("incidentStartDate")) {
+      $('#incidentStartDate').val(localStorage.getItem("incidentStartDate"));
+    }
+    if (localStorage.getItem("incidentEndDate")) {
+      $('#incidentEndDate').val(localStorage.getItem("incidentEndDate"));
+    }
+  });
+}
+
+function myFunction() {
+  var incidentTitle = document.getElementById("incidentTitle");
+  var incidentStartDate = document.getElementById("incidentStartDate");
+  var incidentEndDate = document.getElementById("incidentEndDate");
+  localStorage.setItem("incidentTitle", incidentTitle.value);
+  localStorage.setItem("incidentStartDate", incidentStartDate.value);
+  localStorage.setItem("incidentEndDate", incidentEndDate.value);
+  Views.Members();
 }
 
 function buildTable(tableObject) {
@@ -28,7 +54,7 @@ function buildTable(tableObject) {
   $.get('../templates/table.mst', (template) => {
     var table = Mustache.render(template, tableObject );
     $('.app').append(table);
-  })
+  });
 };
 
 function buildButton(buttonObject) {
@@ -36,8 +62,20 @@ function buildButton(buttonObject) {
     var button = Mustache.render(template, buttonObject );
     $(buttonObject.parentSelector).append(button);
     $('#' + buttonObject.id).click(buttonObject.target);
-  })
+    $('#submit-incident').click(function() {
+      localStorage.removeItem("incidentTitle");
+      localStorage.removeItem("incidentStartDate");
+      localStorage.removeItem("incidentEndDate");
+    });
+  });
 };
+
+function createErrorMessage(messageObject) {
+  $.get('../templates/error-message.mst', (template) => {
+    var message = Mustache.render(template, messageObject);
+    $('.app').append(message);
+  });
+}
 
 function searchBarUpdate() {
     var input, filter, table, tr, label, i;
