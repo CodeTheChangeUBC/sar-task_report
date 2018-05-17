@@ -93,3 +93,33 @@ function searchBarUpdate() {
         }
     }
 }
+
+function repairSave() {
+  console.log("repair save")
+  Views.State.repair_form = $("#repair_form").serializeArray();
+}
+
+function repairClear(){
+  console.log("repair clear")
+  $("#repair_form")[0].reset();
+}
+
+function repairSubmit(){
+  console.log("repair submit")
+  Views.State.repair_form = $("#repair_form").serializeArray();
+  formData = $("#repair_form :input").filter(function(index, element) {return $(element).val() != ''}).serialize();
+  $.ajax({
+          type: "POST",
+          url: "https://api.ca.d4h.org/v2/team/repairs",
+          headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
+          data: formData,
+          success: (response) => {
+            console.log(response)
+            alert("Form successfully submitted")
+          },
+          error: (err) => {
+            console.log(err)
+            alert("Form was not submitted: " + err.responseJSON.message);
+          }
+        });
+}

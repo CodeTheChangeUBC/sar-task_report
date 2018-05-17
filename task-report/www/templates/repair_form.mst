@@ -1,22 +1,61 @@
-<form method = "post" id = "repair_form">
-  Fields with a * must be filled in. <br>
-  Equipment Id*: <input type = "number" name = "equipment_id" value = {{equipment_id_value}}><br>
-  Title*: <input type = "text" name = "title" value= {{title_value}}><br>
-  Cause*: <select name="caused_by">
+<div class="container header">
+  <div class="row">
+    <div class="col">
+      <h6>Fields with a * must be filled in.</h6>
+      <form id = "repair_form">
+        <div class="form-group">
+          <label for="equipmentId">Equipment Id*</label>
+          <input class="form-control" type = "number" name= "equipment_id"  id="equipmentId" required>
+        </div>
+        <div class="form-group">
+          <label for="titleId">Title*</label>
+          <input class="form-control" type = "text" name = "title" id = "titleId" required>
+        </div>
+        <div class="form-group">
+          <label for="causeId">Cause*</label>
+          <select name="caused_by" id = "causeId" class="form-control" required>
             <option value="0">Unknown</option>
             <option value="1">Natural Deterioration</option>
             <option value="2">Being Used as Intended</option>
             <option value="3">Incorrect Operation</option>
-          </select><br>
-  Status*:<select name="status">
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="statusId">Status*</label>
+          <select name="status" id = "statusId" class="form-control" required>
             <option value="0">Not Started</option>
             <option value="8">In Progress</option>
             <option value="1">Completed</option>
-          </select><br>
-  Member Id: <input type = "number" name = "member_id" value = {{member_id_value}} ><br>
-  Repair Cost: <input type = "number" name = "repair_cost" value = {{repair_cost_value}} ><br>
-  Date Due: <input type = "date" name = "date_due" value = {{date_due_value}} ><br/>
-  Activity Id: <input type = "number" name = "activity_id" value = {{activity_id_value}} ><br>
-</form>
-
-  Description: <textarea name = "description" form = "repair_form">{{description_value}}</textarea>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="memberId">Member Id</label>
+          <input type = "number" class="form-control" name = "member_id" id = "memberId" value = "" >
+        </div>
+        <div class="form-group">
+          <label for="costId">Repair Cost</label>
+          <input class="form-control" type = "number" name = "repair_cost" id ="costId" value = "">
+        </div>
+        <div class="form-group">
+          <label for="dateId">Date Due</label>
+          <input class="form-control" type = "date" name = "date_due" id = "dateId" value = "" >
+        </div>
+        <div class="form-group">
+          <label for="activityId">Activity Id</label>
+          <input class="form-control" type = "number" name = "activity_id" id = "activityId" value = "">
+        </div>
+        <div class="form-group">
+          <label for="descriptionId">Description</label>
+          <textarea class="form-control" name = "description" id = "descriptionId" ></textarea>
+        </div>
+        <div class="btn-toolbar">
+          <button type="button" class="btn btn-success btn-lg" id="repair_submit_button" onclick="repairSubmit()">Submit</button>
+          <span class="caret"></span>
+          <button type="button" class="btn btn-primary btn-lg" id="repair_save_button" onclick="repairSave()">Save Changes</button>
+          <span class="caret"></span>
+          <button type="button" class="btn btn-danger btn-lg" id="repair_clear_button" onclick="repairClear()">Clear All</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

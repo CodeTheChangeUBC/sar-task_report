@@ -130,52 +130,16 @@ const Views = {
     createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "repairs" });
     buildHeader({ title: "Submit a Request to Repair a Resource", hideBackButton: true });
     $.get('../templates/repair_form.mst', (template) => {
-      empty_form_object = {equipment_id_value : "", title_value: "", member_id_value: "", repair_cost_value: "", date_due_value: "", activity_id_value:"", description_value: ""};
-      var renderString = Mustache.render(template,empty_form_object);
+      var renderString = Mustache.render(template);
       $('.app').append(renderString);
-      buildButton({ id: "repair_resource_submit", text: "Submit", target: repair_submit, parentSelector: ".app"});
-      buildButton({ id: "repair_resource_save", text: "Save All Changes", target: repair_save, parentSelector: ".app"});
-      buildButton({ id: "repair_resource_clear", text: "Clear All", target: repair_clear, parentSelector: ".app"});
 
-        if (Views.State.repair_form) {
-          console.log("trying to restore previous values")
-          previous_form_values = Views.State.repair_form;
-          console.log(previous_form_values);
-            previous_form_values.forEach(function(arrayItem){
-              $("[name="+arrayItem.name+"]").val(arrayItem.value)
-              console.log($("[name="+arrayItem.name+"]"));
-            })
-        }
-      })
-
-    var repair_clear = function(){
-      $("#repair_form")[0].reset();
-    }
-
-    var repair_save = function(){
-      Views.State.repair_form = $("#repair_form").serializeArray();
-    }
-
-
-    var repair_submit = function(){
-      console.log($("#repair_form").serialize());
-      Views.State.repair_form = $("#repair_form").serializeArray();
-      console.log("stored the array" + Views.State.repair_form)
-      $.ajax({
-              type: "POST",
-              url: "https://api.ca.d4h.org/v2/team/repairs",
-              headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
-              data: $("form").serialize(),
-              success: (response) => {
-                console.log(response)
-                alert("Form successfully submitted")
-              },
-              error: (err) => {
-                console.log(err)
-                alert("Form was not submitted: " + err.responseJSON.message);
-              }
-            });
-    }
+      if (Views.State.repair_form) {
+        previous_form_values = Views.State.repair_form;
+          previous_form_values.forEach(function(arrayItem){
+            $("[name="+arrayItem.name+"]").val(arrayItem.value)
+          })
+      }
+    })
   },
 
   // State: { Activity, ConfirmedAttendees}
