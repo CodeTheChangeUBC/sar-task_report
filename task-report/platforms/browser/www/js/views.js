@@ -36,23 +36,6 @@ const Views = {
   //
   // },
 
-
-  // main views
-  CreateAnIncident: function() {
-    createNavbar({ incidentClass: "active", repairClass: "inactive", resourcesClass: "inactive" });
-    return Views.Activities();
-  },
-
-  RepairForm: function() {
-    createNavbar({ incidentClass: "inactive", repairClass: "active", resourcesClass: "inactive" });
-    return Views.Repair();
-  },
-
-  FindResources: function() {
-    createNavbar({ incidentClass: "inactive", repairClass: "inactive", resourcesClass: "active" });
-    return Views.Resources();
-  },
-
   // Views: this,
   Activities: function() {
     createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
@@ -82,60 +65,54 @@ const Views = {
     buildButton({ id: "submit-incident", text: "Submit", target: Views.Activities, parentSelector: ".app"});
   },
 
-  CreateActivity: function() {
-    $.ajax({
-      type: "POST",
-      d
-    });
-  },
-
-  Attendees: function(activityId) {
-    Views.State.Activity = activityId;
-    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
-    buildHeader({ title: "Attendees", target: Views.Activities });
-    $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "https://api.ca.d4h.org/v2/team/attendance?activity_id=" + activityId,
-      headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
-      success: (response) => {
-        Views.State.allAttendanceRecords = response.data;
-        buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name, status: el.status === "attending" }})});
-        scrollToTop();
-        var t = function() {
-          return Views.AttendeesConfirmed($('#form-attendee-table input')
-            .filter( (index,input) => {return input.checked})
-            .map( (i,el) => { return {id: $(el).attr('data-id'), content: $(el).parent().text() } })
-            .toArray());
-        };
-        buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  },
-
-  AttendeesConfirmed: function(confirmedAttendees) {
-    Views.State.ConfirmedAttendees = confirmedAttendees;
-    buildHeader({  title: "Confirmed Attendees", target: () => { Views.Attendees(Views.State.Activity) } });
-    buildTable({ DOMid: "attendee-confirmed-table", "data-list": confirmedAttendees });
-    $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
-    scrollToTop()
-    buildButton({ id: "button-confirm-attendees", text: "Lock In", target: sendToDatabase, parentSelector: ".app"});
-
-  },
+  // CreateActivity: function() {
+  //   $.ajax({
+  //     type: "POST",
+  //     d
+  //   });
+  // },
+  //
+  // Attendees: function(activityId) {
+  //   Views.State.Activity = activityId;
+  //   createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
+  //   buildHeader({ title: "Attendees", target: Views.Activities });
+  //   $.ajax({
+  //     type: "GET",
+  //     dataType: "json",
+  //     url: "https://api.ca.d4h.org/v2/team/attendance?activity_id=" + activityId,
+  //     headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
+  //     success: (response) => {
+  //       Views.State.allAttendanceRecords = response.data;
+  //       buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name, status: el.status === "attending" }})});
+  //       scrollToTop();
+  //       var t = function() {
+  //         return Views.AttendeesConfirmed($('#form-attendee-table input')
+  //           .filter( (index,input) => {return input.checked})
+  //           .map( (i,el) => { return {id: $(el).attr('data-id'), content: $(el).parent().text() } })
+  //           .toArray());
+  //       };
+  //       buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //     }
+  //   });
+  // },
+  //
+  // AttendeesConfirmed: function(confirmedAttendees) {
+  //   Views.State.ConfirmedAttendees = confirmedAttendees;
+  //   buildHeader({  title: "Confirmed Attendees", target: () => { Views.Attendees(Views.State.Activity) } });
+  //   buildTable({ DOMid: "attendee-confirmed-table", "data-list": confirmedAttendees });
+  //   $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
+  //   scrollToTop()
+  //   buildButton({ id: "button-confirm-attendees", text: "Lock In", target: sendToDatabase, parentSelector: ".app"});
+  //
+  // },
 
   Repair: function() {
     // do something
     createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "repairs" });
     buildHeader({ title: "Repair", hideBackButton: true });
-  },
-
-  Resources: function() {
-    // do something
-    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "resources" });
-    buildHeader({ title: "Resources", hideBackButton: true });
   },
 
   // State: { Activity, ConfirmedAttendees}

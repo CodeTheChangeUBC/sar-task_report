@@ -39,7 +39,38 @@ function createIncident(incidentObject) {
   });
 }
 
-function myFunction() {
+function buildReportForm(formObject) {
+  $.get('../templates/report-form.mst', (template) => {
+    var form = Mustache.render(template, formObject);
+    $('.app').append(form);
+    if (localStorage.getItem("inputDescription")) {
+      $('#inputDescription').val(localStorage.getItem("inputDescription"));
+    }
+    if (localStorage.getItem("inputAddress")) {
+      $('#inputAddress').val(localStorage.getItem("inputAddress"));
+    }
+    if (localStorage.getItem("inputCity")) {
+      $('#inputCity').val(localStorage.getItem("inputCity"));
+    }
+    if (localStorage.getItem("inputProvince")) {
+      $('#inputProvince').val(localStorage.getItem("inputProvince"));
+    }
+    if (localStorage.getItem("inputPostal")) {
+      $('#inputPostal').val(localStorage.getItem("inputPostal"));
+    }
+    if (localStorage.getItem("inputCountry")) {
+      $('#inputCountry').val(localStorage.getItem("inputCountry"));
+    }
+    if (localStorage.getItem("inputLat")) {
+      $('#inputLat').val(localStorage.getItem("inputLat"));
+    }
+    if (localStorage.getItem("inputLon")) {
+      $('#inputLon').val(localStorage.getItem("inputLon"));
+    }
+  });
+}
+
+function storeIncidentDetails() {
   var incidentTitle = document.getElementById("incidentTitle");
   var incidentStartDate = document.getElementById("incidentStartDate");
   var incidentEndDate = document.getElementById("incidentEndDate");
@@ -49,13 +80,40 @@ function myFunction() {
   Views.Members();
 }
 
+function storeIncidentReportDetails() {
+  var description = document.getElementById("inputDescription");
+  var streetAddress = document.getElementById("inputAddress");
+  var city = document.getElementById("inputCity");
+  var province = document.getElementById("inputProvince");
+  var postalCode = document.getElementById("inputPostal");
+  var country = document.getElementById("inputCountry");
+  var lat = document.getElementById("inputLat");
+  var lon = document.getElementById("inputLon");
+
+  localStorage.setItem("description", description.value);
+  localStorage.setItem("streetAddress", streetAddress.value);
+  localStorage.setItem("city", city.value);
+  localStorage.setItem("province", province.value);
+  localStorage.setItem("postalCode", postalCode.value);
+  localStorage.setItem("country", country.value);
+  localStorage.setItem("lat", lat.value);
+  localStorage.setItem("lon", lon.value);
+}
+
+function submitReport() {
+  storeIncidentDetails();
+  // submit report if online and clear local storage
+  // otherwise display try again later error
+
+}
+
 function buildTable(tableObject) {
   // tableObject = { DOMid: ...., title: ... , data-list: [...]}
   $.get('../templates/table.mst', (template) => {
     var table = Mustache.render(template, tableObject );
     $('.app').append(table);
   });
-};
+}
 
 function buildButton(buttonObject) {
   $.get('../templates/button.mst', (template) => {
@@ -68,7 +126,7 @@ function buildButton(buttonObject) {
       localStorage.removeItem("incidentEndDate");
     });
   });
-};
+}
 
 function searchBarUpdate() {
     var input, filter, table, tr, label, i;

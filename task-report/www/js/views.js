@@ -62,7 +62,8 @@ const Views = {
   Report: function() {
     createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "activities" });
     buildHeader({ title: "Fill Report", target: Views.Members });
-    buildButton({ id: "submit-incident", text: "Submit", target: Views.Activities, parentSelector: ".app"});
+    buildReportForm({});
+    buildButton({ id: "submit-incident", text: "Submit", target: submitReport(), parentSelector: ".app"});
   },
 
   // CreateActivity: function() {
