@@ -72,7 +72,7 @@ const Views = {
     if (localStorage.getItem("incidents")) {
       console.log("Retreiving stored incidents...");
       var incidents = JSON.parse(localStorage.getItem("incidents"));
-      buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": incidents.map( el => { return { id: el.id, content: el.ref_desc } } )});
+      buildTable({ DOMid: "activity-table", groupName: "act", inputType: "radio", "data-list": incidents.reverse().map( el => { return { id: el.id, content: el.ref_desc } } )});
       var t = function() {
         if(!$('#form-activity-table input').filter( (index,input) => {return input.checked}).attr('data-id')) {
           alert("Please select an activity.");
@@ -98,12 +98,12 @@ const Views = {
       headers: { Authorization: "Bearer " + Views.State.token},
       success: (response) => {
         Views.State.allAttendanceRecords = response.data;
-        buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.member.id, content: el.member.name, status: el.status === "attending" }})});
+        buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.id, content: el.member.name, status: el.status === "attending" }})});
         scrollToTop();
         var t = function() {
           return Views.AttendeesConfirmed($('#form-attendee-table input')
             .filter( (index,input) => {return input.checked})
-            .map( (i,el) => { return {id: $(el).attr('data-id'), content: $(el).parent().text() } })
+            .map( (i,el) => { return {id: $(el).data('id'), content: $(el).parent().text().trim() } })
             .toArray());
         };
         buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
@@ -119,10 +119,10 @@ const Views = {
     Views.State.ConfirmedAttendees = confirmedAttendees;
     createNavbar({ target1: Views.Activities, target2: Views.Attendance, target3: Views.Repair, active: "attendance" });
     buildHeader({  title: "Confirmed Attendees", target: () => { Views.Attendees(Views.State.Activity) } });
-    buildTable({ DOMid: "attendee-confirmed-table", "data-list": confirmedAttendees });
+    buildTable({ DOMid: "attendee-confirmed-table", inputType: "hidden", "data-list": confirmedAttendees });
     // $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
-    // scrollToTop()
-    buildButton({ id: "button-confirm-attendees", text: "Lock In", target: Views.Activities, parentSelector: ".app"});
+    scrollToTop();
+    buildButton({ id: "button-confirm-attendees", text: "Lock In", target: testAPI(), parentSelector: ".app"});
   
   },
 
