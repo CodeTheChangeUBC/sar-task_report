@@ -105,14 +105,39 @@ function repairClear(){
 }
 
 function repairSubmit(){
-  console.log("repair submit")
   Views.State.repair_form = $("#repair_form").serializeArray();
-  formData = $("#repair_form :input").filter(function(index, element) {return $(element).val() != ''}).serialize();
+  //formData = $("#repair_form :input").filter(function(index, element) {return $(element).val() != ''}).serialize();
+
+  var formData = new FormData();
+  formData.append("equipment_id", $("#equipmentId").val());
+  formData.append("title", $("#titleId").val());
+  formData.append("caused_by", $("#causeId").val());
+  formData.append("status",  $("#statusId").val());
+
+  if ($("#memberId").val() != ""){
+    formData.append("member_id",$("#memberId").val());
+  }
+
+  if ($("#costId").val() != ""){
+    formData.append("repair_cost",$("#costId").val());
+  }
+
+  if ($("#dateId").val() != ""){
+    formData.append("date_due",$("#dateId").val());
+  }
+  if ($("#descriptionId").val() != ""){
+    formData.append("description",$("#descriptionId").val());
+  }
+
+  console.log(formData)
+
   $.ajax({
           type: "POST",
           url: "https://api.ca.d4h.org/v2/team/repairs",
-          headers: { Authorization: "Bearer ac58bc1485ef03d4e5a815a6785bc8f4feefe27a"},
+          headers: { Authorization: "Bearer " + Views.State.token},
           data: formData,
+          processData: false, // need this or will return 'boundary not set' error (?)
+          contentType: false, // same here - basically, we need jQuery to fall back to 'default'
           success: (response) => {
             console.log(response)
             alert("Form successfully submitted")

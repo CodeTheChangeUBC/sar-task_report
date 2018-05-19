@@ -113,6 +113,7 @@ function testAPI() {
     var formData = new FormData();
     formData.append("attendance_id", attendee.id);
     formData.append("status", "attending");
+    console.log(formData)
     $.ajax({
       type: "PUT",
       dataType: "json",
