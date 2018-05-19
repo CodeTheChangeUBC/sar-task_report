@@ -1,7 +1,7 @@
 <div class="container header">
   <div class="row">
     <div class="col">
-      <form onsubmit="myFunction(); return false">
+      <form onsubmit="storeIncidentDetails(); return false">
         <div class="form-group">
           <label for="incidentTitle">Title</label>
           <input type="text" class="form-control" id="incidentTitle" placeholder="Title" required>
