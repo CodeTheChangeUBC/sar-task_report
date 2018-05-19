@@ -7,13 +7,13 @@
           {{ #data-list }}
           <tr>
             <td>
-              <input name="{{ groupName }}" data-id={{ id }} type={{ inputType }}>
+              {{^status}}
+                <input name="{{ groupName }}" data-id={{ id }} type={{ inputType }}>
+              {{/status}}
+              {{#status}}
+                <input name="{{ groupName }}" checked=true data-id={{ id }} type={{ inputType }}>
+              {{/status}}
               <label class="form-check-label">
-                {{^status}}
-                {{/status}}
-                {{#status}}
-                  <input name="{{ groupName }}" checked=true id={{ id }} type={{ inputType }}>
-                  {{/status}}
                 <div class='control_background' ></div>
                 {{ content }}
               </label>

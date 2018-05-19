@@ -23,6 +23,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener("offline", this.onOffline, false);
         // Pulling up first view
 
         // Views.Activities();
@@ -35,6 +36,12 @@ var app = {
     onDeviceReady: function() {
         //this.receivedEvent('deviceready');
         //document.addEventListener("backbutton", Views.OnBackButton, false);
+        Views.InitializeState();
+        Views.Launch();
+    },
+
+    onOffline: function() {
+        alert("You are now offline.");
         Views.InitializeState();
         Views.Launch();
     },

@@ -4,6 +4,9 @@
       <li id="activities" class="nav-item d-flex align-items-center">
         <a class="nav-link p-2 p-sm-3" href="#">Activities</a>
       </li>
+      <li id="attendance" class="nav-item d-flex align-items-center">
+        <a class="nav-link p-2 p-sm-3" href="#">Attendance</a>
+      </li>
       <li id="repairs" class="nav-item d-flex align-items-center">
         <a class="nav-link p-2 p-sm-3" href="#">Repairs</a>
       </li>

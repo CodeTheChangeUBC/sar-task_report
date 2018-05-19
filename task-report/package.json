@@ -20,8 +20,8 @@
     },
     "cordova": {
         "plugins": {
-            "cordova-plugin-whitelist": {},
-            "cordova-plugin-network-information": {}
+            "cordova-plugin-network-information": {},
+            "cordova-plugin-whitelist": {}
         },
         "platforms": [
             "browser",
