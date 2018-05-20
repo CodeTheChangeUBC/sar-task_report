@@ -104,31 +104,40 @@ function sendToDatabase() {
   }
 }
 
-function testAPI() {
+function updateAttendanceRecords() {
+  var status = true;
   for (attendee of Views.State.ConfirmedAttendees) {
     // var aRecordId = findAttendanceRecord(attendee.id);
     // var formString = "activity_id=" + Views.State.Activity + "&member=" + attendee.id + "&status=attending";
     // building a mock-form (endpoint expects form-data)
+    if (!status) {
+      alert("There was an error updating attendance records. Please try again.");
+      break;
+    }
 
     var formData = new FormData();
-    formData.append("attendance_id", attendee.id);
     formData.append("status", "attending");
     $.ajax({
       type: "PUT",
       dataType: "json",
-      url: "https://api.ca.d4h.org/v2/team/attendance",
+      url: "https://api.ca.d4h.org/v2/team/attendance/" + attendee.id,
       headers: { Authorization: "Bearer " + Views.State.token},
       data: formData,
       processData: false, // need this or will return 'boundary not set' error (?)
       contentType: false, // same here - basically, we need jQuery to fall back to 'default'
       success: (response) => {
-        alert("Sent successfully.");
         console.log(response);
       },
       error: (err) => {
-        alert("Problem sending...");
         console.log(err);
+        status = false;
       }
     });
   }
+
+  if (status) {
+    alert("Successfully updated attendance records.");
+    return Views.Attendance();
+  }
+
 }

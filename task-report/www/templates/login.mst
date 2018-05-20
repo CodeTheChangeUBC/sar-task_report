@@ -1,4 +1,10 @@
-<form method = "post" >
-  <input type = "text" name = "username" value = "" placeholder="Username">
-  <input type = "text" name = "password" value= "" placeholder="Password">
-</form>
+<div class="container d-flex justify-content-center" style="min-height: 100vh">
+  <div class="row align-self-center w-100">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6 offset-md-1 offset-lg-2 offset-xl-3">
+      <form method = "post" >
+        <input type = "text" name = "username" value = "" placeholder="Username" class="form-control mb-2">
+        <input type="password" name = "password" value = "" placeholder="Password" class="form-control">
+      </form>
+    </div>
+  </div>
+</div>
