@@ -35,7 +35,7 @@ const Views = {
           }
         });
     }
-  
+
   },
 
   // Views: this,
@@ -109,7 +109,7 @@ const Views = {
           return Views.AttendeesConfirmed($('#form-attendee-table input')
             .filter( (index,input) => {return input.checked})
             .map( (i,el) => { return {id: $(el).data('id'), content: $(el).parent().text().trim() } })
-            .toArray());        
+            .toArray());
           };
         buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
       },
@@ -126,7 +126,7 @@ const Views = {
     buildHeader({  title: "Confirmed Attendees", target: () => { Views.Attendees(Views.State.Activity) } });
     buildTable({ DOMid: "attendee-confirmed-table", inputType: "hidden", "data-list": confirmedAttendees });
     // $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
-    scrollToTop();  
+    scrollToTop();
     var t = function() {
       updateAttendanceRecords();
     }
@@ -134,7 +134,7 @@ const Views = {
   },
 
   Repair: function() {
-    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "repairs" });
+    createNavbar({ target1: Views.Activities, target2: Views.Attendance, target3: Views.Repair, active: "repair" });
     buildHeader({ title: "Submit a Request to Repair a Resource", hideBackButton: true });
     $.get('../templates/repair_form.mst', (template) => {
       var renderString = Mustache.render(template);

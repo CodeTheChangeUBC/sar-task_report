@@ -23,10 +23,6 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        document.addEventListener("offline", this.onOffline, false);
-        // Pulling up first view
-
-        // Views.Activities();
     },
 
     // deviceready Event Handler
@@ -36,6 +32,8 @@ var app = {
     onDeviceReady: function() {
         //this.receivedEvent('deviceready');
         //document.addEventListener("backbutton", Views.OnBackButton, false);
+        document.addEventListener("offline", this.onOffline, false);
+        document.addEventListener("online", this.onOnline, false);
         Views.InitializeState();
         Views.Launch();
     },
@@ -44,6 +42,10 @@ var app = {
         alert("You are now offline.");
         Views.InitializeState();
         Views.Launch();
+    },
+
+    onOnline: function(){
+      alert("You are now online. If you have saved any forms please remeber to submit them while online.")
     },
 
     // Update DOM on a Received Event
