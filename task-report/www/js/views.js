@@ -91,7 +91,7 @@ const Views = {
       console.log("Epic fail!!!");
     }
   },
-  
+
   Attendees: function(activityId) {
     Views.State.Activity = activityId;
     createNavbar({ target1: Views.Activities, target2: Views.Attendance, target3: Views.Repair, active: "attendance" });
@@ -119,7 +119,7 @@ const Views = {
       }
     });
   },
-  
+
   AttendeesConfirmed: function(confirmedAttendees) {
     Views.State.ConfirmedAttendees = confirmedAttendees;
     createNavbar({ target1: Views.Activities, target2: Views.Attendance, target3: Views.Repair, active: "attendance" });
@@ -134,9 +134,19 @@ const Views = {
   },
 
   Repair: function() {
-    // do something
-    createNavbar({ target1: Views.Activities, target2: Views.Attendance, target3: Views.Repair, active: "repairs" });
-    buildHeader({ title: "Repair", hideBackButton: true });
+    createNavbar({ target1: Views.Activities, target2: Views.Repair, target3: Views.Resources, active: "repairs" });
+    buildHeader({ title: "Submit a Request to Repair a Resource", hideBackButton: true });
+    $.get('../templates/repair_form.mst', (template) => {
+      var renderString = Mustache.render(template);
+      $('.app').append(renderString);
+
+      if (Views.State.repair_form) {
+        previous_form_values = Views.State.repair_form;
+          previous_form_values.forEach(function(arrayItem){
+            $("[name="+arrayItem.name+"]").val(arrayItem.value)
+          })
+      }
+    })
   },
 
   // State: { Activity, ConfirmedAttendees}

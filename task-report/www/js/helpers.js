@@ -117,6 +117,7 @@ function updateAttendanceRecords() {
 
     var formData = new FormData();
     formData.append("status", "attending");
+    console.log(formData)
     $.ajax({
       type: "PUT",
       dataType: "json",
