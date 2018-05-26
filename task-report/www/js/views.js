@@ -8,7 +8,11 @@ const Views = {
       Views.State.token = "ac58bc1485ef03d4e5a815a6785bc8f4feefe27a";
       getAndStoreMembersList();
       getAndStoreIncidents();
-      Views.Login();
+      if (checkCookie()) {
+        Views.Activities();
+      } else {
+        Views.Login();
+      }
     // }
   },
 
@@ -28,6 +32,10 @@ const Views = {
           success: (response) => {
             // Views.State.token = response.data.token
             console.log(response);
+            var user = response.data.account.username;
+            if (user != "" && user != null) {
+              setCookie("username", user, 7);
+            }
             Views.Activities();
           },
           error: (err) => {
