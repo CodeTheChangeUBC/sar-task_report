@@ -101,7 +101,10 @@ function storeIncidentReportDetails() {
 }
 
 function submitReport() {
+<<<<<<< HEAD
   storeIncidentDetails();
+=======
+>>>>>>> 5c50841fabcb2aad67f83173295abf3da93c3e4f
   // submit report if online and clear local storage
   // otherwise display try again later error
 

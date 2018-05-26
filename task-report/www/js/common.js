@@ -101,7 +101,6 @@ function storeIncidentReportDetails() {
 }
 
 function submitReport() {
-  storeIncidentDetails();
   // submit report if online and clear local storage
   // otherwise display try again later error
 

@@ -8,34 +8,35 @@ const Views = {
       Views.State.token = "ac58bc1485ef03d4e5a815a6785bc8f4feefe27a";
       getAndStoreMembersList();
       getAndStoreIncidents();
-      Views.Activities();
+      Views.Login();
     // }
   },
 
-  // Login : function(){
-  //   $.get('../templates/login.mst', (template) => {
-  //     var renderString = Mustache.render(template);
-  //     $('.app').append(renderString);
-  //     buildButton({ id: "button-get-attendees", text: "Login", target: t, parentSelector: ".app"});
-  //   })
-  //   var t = function(){
-  //     $.ajax({
-  //         type: "POST",
-  //         url: "https://api.ca.d4h.org/v2/account/authenticate",
-  //         data: $("form").serialize(),
-  //         // processData: false, // need this or will return 'boundary not set' error (?)
-  //         // contentType: false, // same here - basically, we need jQuery to fall back to 'default'
-  //         success: (response) => {
-  //           Views.State.token = response.data.token
-  //           Views.Activities()
-  //         },
-  //         error: (err) => {
-  //           alert("Login fail");
-  //         }
-  //       });
-  //   }
-  //
-  // },
+  Login : function(){
+    $.get('../templates/login.mst', (template) => {
+      var renderString = Mustache.render(template);
+      $('.app').append(renderString);
+      buildButton({ id: "button-login", text: "Login", target: t, parentSelector: ".app"});
+    })
+    var t = function(){
+      $.ajax({
+          type: "POST",
+          url: "https://api.ca.d4h.org/v2/account/authenticate",
+          data: $("form").serialize(),
+          // processData: false, // need this or will return 'boundary not set' error (?)
+          // contentType: false, // same here - basically, we need jQuery to fall back to 'default'
+          success: (response) => {
+            // Views.State.token = response.data.token
+            console.log(response);
+            Views.Activities();
+          },
+          error: (err) => {
+            alert("Login failed");
+          }
+        });
+    }
+  
+  },
 
   // Views: this,
   Activities: function() {
@@ -64,7 +65,14 @@ const Views = {
     createNavbar({ target1: Views.Activities, target2: Views.Attendance, target3: Views.Repair, active: "activities" });
     buildHeader({ title: "Fill Report", target: Views.Members });
     buildReportForm({});
+<<<<<<< HEAD
     buildButton({ id: "submit-incident", text: "Submit", target: submitReport(), parentSelector: ".app"});
+=======
+    var t = function() {
+      submitReport();
+    }
+    buildButton({ id: "submit-incident", text: "Submit", target: t, parentSelector: ".app"});
+>>>>>>> 5c50841fabcb2aad67f83173295abf3da93c3e4f
   },
 
   Attendance: function() {
@@ -102,10 +110,8 @@ const Views = {
         buildTable({ DOMid: "attendee-table", inputType: "checkbox", "data-list": response.data.map( el => { return { id: el.id, content: el.member.name, status: el.status === "attending" }})});
         scrollToTop();
         var t = function() {
-          return Views.AttendeesConfirmed($('#form-attendee-table input')
-            .filter( (index,input) => {return input.checked})
-            .map( (i,el) => { return {id: $(el).data('id'), content: $(el).parent().text().trim() } })
-            .toArray());
+          var confirmedAttendees = $('#form-attendee-table input').filter( (index,input) => {return input.checked}).map( (i,el) => { return {id: $(el).data('id'), content: $(el).parent().text().trim() } }).toArray();
+          return Views.AttendeesConfirmed(confirmedAttendees);
         };
         buildButton({ id: "button-show-attendees", text: "Confirm", target: t, parentSelector: ".app"});
       },
@@ -122,9 +128,11 @@ const Views = {
     buildHeader({  title: "Confirmed Attendees", target: () => { Views.Attendees(Views.State.Activity) } });
     buildTable({ DOMid: "attendee-confirmed-table", inputType: "hidden", "data-list": confirmedAttendees });
     // $('#back-button').click(() => { Views.Attendees(Views.State.Activity)});
-    scrollToTop();
-    buildButton({ id: "button-confirm-attendees", text: "Lock In", target: testAPI(), parentSelector: ".app"});
-  
+    scrollToTop();  
+    var t = function() {
+      updateAttendanceRecords();
+    }
+    buildButton({ id: "button-confirm-attendees-asdf", text: "Lock In", target: t, parentSelector: ".app"});
   },
 
   Repair: function() {
