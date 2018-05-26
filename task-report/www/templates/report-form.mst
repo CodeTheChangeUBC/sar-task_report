@@ -34,7 +34,7 @@
       <label for="inputCountry">Country</label>
       <select id="inputCountry" class="form-control">
         <option selected>Canada</option>
-        <option selected>United States</option>
+        <option>United States</option>
       </select>
     </div>
   </div>
