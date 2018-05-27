@@ -10,7 +10,7 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "dependencies": {
-        "cordova-android": "^7.0.0",
+        "cordova-android": "^7.1.0",
         "cordova-browser": "^5.0.3",
         "cordova-ios": "^4.5.4",
         "cordova-osx": "^4.0.1",
@@ -25,11 +25,11 @@
             "cordova-plugin-whitelist": {}
         },
         "platforms": [
-            "browser",
             "windows",
             "osx",
             "ios",
-            "android"
+            "android",
+            "browser"
         ]
     }
 }
