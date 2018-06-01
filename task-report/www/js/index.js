@@ -34,7 +34,6 @@ var app = {
         //document.addEventListener("backbutton", Views.OnBackButton, false);
         document.addEventListener("offline", this.onOffline, false);
         document.addEventListener("online", this.onOnline, false);
-        Views.InitializeState();
         Views.Launch();
     },
 

@@ -24,24 +24,24 @@ function getDate() {
 }
 
 function getAndStoreMembersList() {
-  if (!localStorage.getItem("members")) { //add or condition for when its X days old
+  if (!Views.State.getItem("members")) { //add or condition for when its X days old
     console.log("Making database call for members...");
     $.ajax({
       type: "GET",
       dataType: "json",
       url: "https://api.ca.d4h.org/v2/team/members",
-      headers: { Authorization: "Bearer " + Views.State.token },
+      headers: { Authorization: "Bearer " + Views.State.getItem('token') },
       success: (response) => {
         lom1=response.data;
         $.ajax({
           type: "GET",
           dataType: "json",
           url: "https://api.ca.d4h.org/v2/team/members?offset=250",
-          headers: { Authorization: "Bearer " + Views.State.token },
+          headers: { Authorization: "Bearer " + Views.State.getItem('token') },
           success: (response2) => {
             lom2 = response2.data;
             lom3 = $.merge(lom1, lom2);
-            localStorage.setItem("members", JSON.stringify(lom3));
+            Views.State.setItem("members", lom3);
             return true;
             // var members = JSON.parse(localStorage.getItem("members"));
             // buildTable({ DOMid: "choose-attendees-table", inputType: "checkbox", "data-list": members.map(el => { return { id: el.id, content: el.name } }) });
@@ -61,15 +61,15 @@ function getAndStoreMembersList() {
 }
 
 function getAndStoreIncidents() {
-  if (!localStorage.getItem("incidents")) { //add or condition for when its X days old
+  if (!Views.State.getItem("incidents")) { //add or condition for when its X days old
     $.ajax({
       type: "GET",
       dataType: "json",
       url: "https://api.ca.d4h.org/v2/team/incidents",
       param: { after: (new Date()).toISOString() },
-      headers: { Authorization: "Bearer " + Views.State.token},
+      headers: { Authorization: "Bearer " + Views.State.getItem('token')},
       success: (response) => {
-        localStorage.setItem("incidents", JSON.stringify(response.data));
+        Views.State.setItem("incidents", response.data);
         return true;
       },
       error: () => {
@@ -81,7 +81,7 @@ function getAndStoreIncidents() {
 }
 
 function sendToDatabase() {
-  for (attendee of Views.State.ConfirmedAttendees) {
+  for (attendee of Views.State.getItem('ConfirmedAttendees')) {
     var aRecordId = findAttendanceRecord(attendee.id)
     // var formString = "activity_id=" + Views.State.Activity + "&member=" + attendee.id + "&status=attending";
     // building a mock-form (endpoint expects form-data)
@@ -106,7 +106,7 @@ function sendToDatabase() {
 
 function updateAttendanceRecords() {
   var status = true;
-  for (attendee of Views.State.ConfirmedAttendees) {
+  for (attendee of Views.State.getItem('ConfirmedAttendees')) {
     // var aRecordId = findAttendanceRecord(attendee.id);
     // var formString = "activity_id=" + Views.State.Activity + "&member=" + attendee.id + "&status=attending";
     // building a mock-form (endpoint expects form-data)
@@ -122,7 +122,7 @@ function updateAttendanceRecords() {
       type: "PUT",
       dataType: "json",
       url: "https://api.ca.d4h.org/v2/team/attendance/" + attendee.id,
-      headers: { Authorization: "Bearer " + Views.State.token},
+      headers: { Authorization: "Bearer " + Views.State.getItem('token')},
       data: formData,
       processData: false, // need this or will return 'boundary not set' error (?)
       contentType: false, // same here - basically, we need jQuery to fall back to 'default'
@@ -145,7 +145,7 @@ function updateAttendanceRecords() {
 
 function repairSave() {
   console.log("repair save")
-  Views.State.repair_form = $("#repair_form").serializeArray();
+  Views.State.setItem('repair_form', $("#repair_form").serializeArray());
 }
 
 function repairClear(){
@@ -154,7 +154,7 @@ function repairClear(){
 }
 
 function repairSubmit(){
-  Views.State.repair_form = $("#repair_form").serializeArray();
+  Views.State.setItem('repair_form', $("#repair_form").serializeArray());
   //formData = $("#repair_form :input").filter(function(index, element) {return $(element).val() != ''}).serialize();
 
   var formData = new FormData();
@@ -183,7 +183,7 @@ function repairSubmit(){
   $.ajax({
           type: "POST",
           url: "https://api.ca.d4h.org/v2/team/repairs",
-          headers: { Authorization: "Bearer " + Views.State.token},
+          headers: { Authorization: "Bearer " + Views.State.getItem('token')},
           data: formData,
           processData: false, // need this or will return 'boundary not set' error (?)
           contentType: false, // same here - basically, we need jQuery to fall back to 'default'

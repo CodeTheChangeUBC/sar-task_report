@@ -27,14 +27,15 @@ function createIncident(incidentObject) {
   $.get('../templates/create-activity-form.mst', (template) => {
     var form = Mustache.render(template, incidentObject);
     $('.app').append(form);
-    if (localStorage.getItem("incidentTitle")) {
-      $('#incidentTitle').val(localStorage.getItem("incidentTitle"));
+    var incidentObj = Views.State.getItem('incidentDetails');
+    if (incidentObj.title) {
+      $('#incidentTitle').val(incidentObj.title);
     }
-    if (localStorage.getItem("incidentStartDate")) {
-      $('#incidentStartDate').val(localStorage.getItem("incidentStartDate"));
+    if (incidentObj.startDate) {
+      $('#incidentStartDate').val(incidentObj.startDate);
     }
-    if (localStorage.getItem("incidentEndDate")) {
-      $('#incidentEndDate').val(localStorage.getItem("incidentEndDate"));
+    if (incidentObj.endDate) {
+      $('#incidentEndDate').val(incidentObj.endDate);
     }
   });
 }
@@ -43,61 +44,70 @@ function buildReportForm(formObject) {
   $.get('../templates/report-form.mst', (template) => {
     var form = Mustache.render(template, formObject);
     $('.app').append(form);
-    if (localStorage.getItem("inputDescription")) {
-      $('#inputDescription').val(localStorage.getItem("inputDescription"));
+    var incidentReportObj = Views.State.getItem('incidentReportDetails')
+    if (incidentReportObj.description) {
+      $('#inputDescription').val(incidentReportObj.description);
     }
-    if (localStorage.getItem("inputAddress")) {
-      $('#inputAddress').val(localStorage.getItem("inputAddress"));
+    if (incidentReportObj.streetAddress) {
+      $('#inputAddress').val(incidentReportObj.streetAddress);
     }
-    if (localStorage.getItem("inputCity")) {
-      $('#inputCity').val(localStorage.getItem("inputCity"));
+    if (incidentReportObj.city) {
+      $('#inputCity').val(incidentReportObj.city);
     }
-    if (localStorage.getItem("inputProvince")) {
-      $('#inputProvince').val(localStorage.getItem("inputProvince"));
+    if (incidentReportObj.province) {
+      $('#inputProvince').val(incidentReportObj.province);
     }
-    if (localStorage.getItem("inputPostal")) {
-      $('#inputPostal').val(localStorage.getItem("inputPostal"));
+    if (incidentReportObj.postalCode) {
+      $('#inputPostal').val(incidentReportObj.postalCode);
     }
-    if (localStorage.getItem("inputCountry")) {
-      $('#inputCountry').val(localStorage.getItem("inputCountry"));
+    if (incidentReportObj.country) {
+      $('#inputCountry').val(incidentReportObj.country);
     }
-    if (localStorage.getItem("inputLat")) {
-      $('#inputLat').val(localStorage.getItem("inputLat"));
+    if (incidentReportObj.lat) {
+      $('#inputLat').val(incidentReportObj.lat);
     }
-    if (localStorage.getItem("inputLon")) {
-      $('#inputLon').val(localStorage.getItem("inputLon"));
+    if (incidentReportObj.lon) {
+      $('#inputLon').val(incidentReportObj.lon);
     }
   });
 }
 
 function storeIncidentDetails() {
-  var incidentTitle = document.getElementById("incidentTitle");
-  var incidentStartDate = document.getElementById("incidentStartDate");
-  var incidentEndDate = document.getElementById("incidentEndDate");
-  localStorage.setItem("incidentTitle", incidentTitle.value);
-  localStorage.setItem("incidentStartDate", incidentStartDate.value);
-  localStorage.setItem("incidentEndDate", incidentEndDate.value);
+  var title = document.getElementById("incidentTitle").value;
+  var startDate = document.getElementById("incidentStartDate").value;
+  var endDate = document.getElementById("incidentEndDate").value;
+  var incidentObj = { 
+    title, 
+    startDate,
+    endDate
+  }
+  Views.State.setItem("incidentDetails", incidentObj)
   Views.Members();
+  return
 }
 
 function storeIncidentReportDetails() {
-  var description = document.getElementById("inputDescription");
-  var streetAddress = document.getElementById("inputAddress");
-  var city = document.getElementById("inputCity");
-  var province = document.getElementById("inputProvince");
-  var postalCode = document.getElementById("inputPostal");
-  var country = document.getElementById("inputCountry");
-  var lat = document.getElementById("inputLat");
-  var lon = document.getElementById("inputLon");
+  var description = document.getElementById("inputDescription").value;
+  var streetAddress = document.getElementById("inputAddress").value;
+  var city = document.getElementById("inputCity").value;
+  var province = document.getElementById("inputProvince").value;
+  var postalCode = document.getElementById("inputPostal").value;
+  var country = document.getElementById("inputCountry").value;
+  var lat = document.getElementById("inputLat").value;
+  var lon = document.getElementById("inputLon").value;
 
-  localStorage.setItem("description", description.value);
-  localStorage.setItem("streetAddress", streetAddress.value);
-  localStorage.setItem("city", city.value);
-  localStorage.setItem("province", province.value);
-  localStorage.setItem("postalCode", postalCode.value);
-  localStorage.setItem("country", country.value);
-  localStorage.setItem("lat", lat.value);
-  localStorage.setItem("lon", lon.value);
+  var incidentReportObj =  {
+    description,
+    streetAddress,
+    city,
+    province,
+    postalCode,
+    country,
+    lat,
+    lon  
+  }
+  Views.State.setItem("incidentReportDetails", incidentReportObj)
+  return
 }
 
 function submitReport() {
@@ -120,9 +130,7 @@ function buildButton(buttonObject) {
     $(buttonObject.parentSelector).append(button);
     $('#' + buttonObject.id).click(buttonObject.target);
     $('#submit-incident').click(function() {
-      localStorage.removeItem("incidentTitle");
-      localStorage.removeItem("incidentStartDate");
-      localStorage.removeItem("incidentEndDate");
+      Views.State.removeItem("incidentDetails");
     });
   });
 }
