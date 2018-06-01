@@ -39,12 +39,16 @@ var app = {
 
     onOffline: function() {
         alert("You are now offline.");
-        Views.InitializeState();
-        Views.Launch();
+        Views.State.setItem('online', false);
+        // Views.InitializeState();
+        // Views.Launch();
+        return
     },
 
     onOnline: function(){
       alert("You are now online. If you have saved any forms please remeber to submit them while online.")
+      Views.State.setItem('online', true);
+      return
     },
 
     // Update DOM on a Received Event

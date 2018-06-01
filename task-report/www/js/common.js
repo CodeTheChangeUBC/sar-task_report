@@ -28,14 +28,16 @@ function createIncident(incidentObject) {
     var form = Mustache.render(template, incidentObject);
     $('.app').append(form);
     var incidentObj = Views.State.getItem('incidentDetails');
-    if (incidentObj.title) {
-      $('#incidentTitle').val(incidentObj.title);
-    }
-    if (incidentObj.startDate) {
-      $('#incidentStartDate').val(incidentObj.startDate);
-    }
-    if (incidentObj.endDate) {
-      $('#incidentEndDate').val(incidentObj.endDate);
+    if (incidentObj) {
+      if (incidentObj.title) {
+        $('#incidentTitle').val(incidentObj.title);
+      }
+      if (incidentObj.startDate) {
+        $('#incidentStartDate').val(incidentObj.startDate);
+      }
+      if (incidentObj.endDate) {
+        $('#incidentEndDate').val(incidentObj.endDate);
+      }
     }
   });
 }
@@ -45,29 +47,31 @@ function buildReportForm(formObject) {
     var form = Mustache.render(template, formObject);
     $('.app').append(form);
     var incidentReportObj = Views.State.getItem('incidentReportDetails')
-    if (incidentReportObj.description) {
-      $('#inputDescription').val(incidentReportObj.description);
-    }
-    if (incidentReportObj.streetAddress) {
-      $('#inputAddress').val(incidentReportObj.streetAddress);
-    }
-    if (incidentReportObj.city) {
-      $('#inputCity').val(incidentReportObj.city);
-    }
-    if (incidentReportObj.province) {
-      $('#inputProvince').val(incidentReportObj.province);
-    }
-    if (incidentReportObj.postalCode) {
-      $('#inputPostal').val(incidentReportObj.postalCode);
-    }
-    if (incidentReportObj.country) {
-      $('#inputCountry').val(incidentReportObj.country);
-    }
-    if (incidentReportObj.lat) {
-      $('#inputLat').val(incidentReportObj.lat);
-    }
-    if (incidentReportObj.lon) {
-      $('#inputLon').val(incidentReportObj.lon);
+    if (incidentReportObj) {
+      if (incidentReportObj.description) {
+        $('#inputDescription').val(incidentReportObj.description);
+      }
+      if (incidentReportObj.streetAddress) {
+        $('#inputAddress').val(incidentReportObj.streetAddress);
+      }
+      if (incidentReportObj.city) {
+        $('#inputCity').val(incidentReportObj.city);
+      }
+      if (incidentReportObj.province) {
+        $('#inputProvince').val(incidentReportObj.province);
+      }
+      if (incidentReportObj.postalCode) {
+        $('#inputPostal').val(incidentReportObj.postalCode);
+      }
+      if (incidentReportObj.country) {
+        $('#inputCountry').val(incidentReportObj.country);
+      }
+      if (incidentReportObj.lat) {
+        $('#inputLat').val(incidentReportObj.lat);
+      }
+      if (incidentReportObj.lon) {
+        $('#inputLon').val(incidentReportObj.lon);
+      }
     }
   });
 }
